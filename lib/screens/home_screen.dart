@@ -1,12 +1,16 @@
 import 'package:chatting_app/components/chat_posts.dart';
 import 'package:chatting_app/components/custom_text.dart';
 import 'package:chatting_app/components/custom_textfield.dart';
+import 'package:chatting_app/components/drawer.dart';
 import 'package:chatting_app/consts/colors.dart';
 import 'package:chatting_app/consts/padding_values.dart';
 import 'package:chatting_app/consts/strings.dart';
+import 'package:chatting_app/utils/navigate_skills.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -48,14 +52,27 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  // navigate to profile page
+  void goToProfilePage(BuildContext context) {
+    // pop drawer menu
+    NavigateSkills().pop(context);
+
+    // go to ProfileScreen
+    NavigateSkills().pushTo(
+      context,
+      const ProfileScreen(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: MyDrawer(
+        onProfileTap: () => goToProfilePage(context),
+        onLogOutTap: signOut,
+      ),
       appBar: AppBar(
         title: const CustomText(text: AllStrings.chattingApp),
-        actions: [
-          IconButton(onPressed: signOut, icon: const Icon(Icons.logout))
-        ],
       ),
       body: Column(
         children: [

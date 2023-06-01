@@ -12,4 +12,10 @@ class AllStrings {
   static const String letsCreateAccountForYou =
       "Lets create an account for you";
   static const String chattingApp = "Chatting App";
+  static const String home = "H O M E";
+  static const String profile = "P R O F I L E";
+  static const String logOut = "L O G  O U T";
+  static const String profilePage = "Profile Page";
+  static const String profileDetails = "Profile Details";
+  static const String myPosts = "My Posts";
 }

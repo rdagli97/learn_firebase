@@ -6,6 +6,7 @@ import 'package:chatting_app/consts/padding_values.dart';
 import 'package:chatting_app/consts/strings.dart';
 import 'package:chatting_app/utils/add_space.dart';
 import 'package:chatting_app/utils/display_message.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -46,9 +47,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
         displayMessage(context, "Passwords didn't match");
       } else {
         try {
-          await _firebaseAuth.createUserWithEmailAndPassword(
+          // create the user
+          UserCredential userCredential =
+              await _firebaseAuth.createUserWithEmailAndPassword(
             email: emailController.text,
             password: passwordController.text,
+          );
+
+          // create new doc in cloud firestore called users
+          FirebaseFirestore.instance
+              .collection("users")
+              .doc(userCredential.user!.email)
+              .set(
+            {
+              "userName": emailController.text.split('@')[0],
+              "bio": "empty bio",
+            },
           );
         } on FirebaseAuthException catch (e) {
           if (e.code.contains("invalid-email")) {

@@ -13,4 +13,8 @@ class AllColors {
   static Color greyS500 = Colors.grey.shade500;
   static const Color red = Colors.red;
   static const Color grey = Colors.grey;
+  static Color greyS900 = Colors.grey.shade900;
+  static Color greyS700 = Colors.grey.shade700;
+  static Color greyS600 = Colors.grey.shade600;
+  static Color greyS200 = Colors.grey.shade200;
 }
